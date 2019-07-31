@@ -19,7 +19,7 @@
     "eslint": "^5.13.0",
     "egg-redis": "^2.4.0",
     "eslint-config-egg": "^7.1.0",
-    "egg-schex": "^0.0.5"
+    "egg-schex": "^0.0.6"
   },
   "engines": {
     "node": ">=10.0.0"
