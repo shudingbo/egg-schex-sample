@@ -21,7 +21,7 @@ class UpdateCache extends SchexJob {
   // 任务初始化函数，在这里设置初始化数据
   onActInit() {
     this._job.ctx = Object.assign({}, init_ctx);
-    this.sc.logger.info('[schex] sample job init');
+    this.logger.info('[schex] sample job init');
   }
 
   /** 任务处理函数 */
