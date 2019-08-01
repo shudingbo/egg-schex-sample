@@ -1,0 +1,12 @@
+{
+	"testSC":{
+		"base":{
+			"cron":"*/5 * * * * *",
+			"fun":"./sc/testSC.js",
+			"switch":true				
+		},
+		"cfg":{
+			"rUrl":"http://test.com"
+		}
+	}
+}

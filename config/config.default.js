@@ -36,6 +36,7 @@ module.exports = appInfo => {
       db: 0,
       keyPre: 'sdb:schedule',
       checkInterval: 5000,
+      jobInitCfg: 'schex.json',
     },
   };
 
