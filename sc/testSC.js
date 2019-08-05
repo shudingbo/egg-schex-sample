@@ -33,8 +33,7 @@ class UpdateCache extends SchexJob {
 
     this.logger.info('schex sample logger');
     ctx.test += 1;
-    console.log('----------', this._job.name, Date.now(), ctx.test);
-    console.log(ectx.helper.dateFormat());
+    console.log('----------', this._job.name, ectx.helper.dateFormat(), ctx.test);
     // console.log(this.ctx, this.app);
     this._job.msg = `${ctx.test} `;
 
@@ -44,8 +43,54 @@ class UpdateCache extends SchexJob {
         switch: 1,
       });
     } else if (ctx.test === 15 || ctx.test === 19) { // 关闭子任务
-      this.stopJob(this.subJobName, `Stop ${this.subJobName}`);
+      this.stopSubJob(this.subJobName, `Stop ${this.subJobName}`);
     }
+
+    if (this.sc.isHandleCtlMsg() === false) {
+
+      if (ctx.test < 2) {
+        const retInfo = await this.sc.getJobStatus();
+        console.log('handle ret', retInfo);
+      } else if (ctx.test === 2) {
+        const retInfo = await this.sc.addJob(
+          'testAddJob',
+          {
+            cron: '*/5 * * * * *',
+            fun: './sc/testAddJob.js',
+            switch: false,
+          },
+          {
+            path: 'this is path from cfg',
+          }
+        );
+        console.log('handle ret', retInfo);
+        // const retInfo = await this.sc.startJob('testAddJob');
+        // console.log('handle ret', retInfo);
+      } else if (ctx.test === 4) {
+        const retInfo = await this.sc.updateJob(
+          'testAddJob',
+          {
+            cron: '*/5 * * * * *',
+            fun: './sc/testAddJob.js',
+            switch: true,
+          },
+          {
+            path: 'this is path from cfg 12',
+          }
+        );
+        console.log('handle ret', retInfo);
+
+      } else if (ctx.test === 8) {
+        const retInfo = await this.sc.stopJob('testAddJob');
+        console.log('handle ret', retInfo);
+      } else if (ctx.test === 12) {
+        const retInfo = await this.sc.deleteJob('testAddJob');
+        console.log('handle ret', retInfo);
+      }
+
+    }
+
+
   }
 
   async onActStop() {
